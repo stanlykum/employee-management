@@ -10,23 +10,23 @@ import org.springframework.stereotype.Component;
 public class EntityToDtoMapper {
 
     public EmployeeDto mapEmployeeToDTO(Employee employee) {
-        EmployeeDto employeeDTO = new EmployeeDto();
-        employeeDTO.setId(employee.getId());
-        employeeDTO.setName(employee.getName());
-        employeeDTO.setSalary(employee.getSalary());
+        var employeeDto = new EmployeeDto();
+        employeeDto.setId(employee.getId());
+        employeeDto.setName(employee.getName());
+        employeeDto.setSalary(employee.getSalary());
 
         if (employee.getDepartment() != null) {
-            DepartmentDto departmentDTO = mapDepartmentToDto(employee.getDepartment());
-            employeeDTO.setDepartment(departmentDTO);
+            var departmentDto = mapDepartmentToDto(employee.getDepartment());
+            employeeDto.setDepartment(departmentDto);
         }
 
-        return employeeDTO;
+        return employeeDto;
     }
 
     public DepartmentDto mapDepartmentToDto(Department department) {
-        DepartmentDto departmentDTO = new DepartmentDto();
-        departmentDTO.setId(department.getId());
-        departmentDTO.setName(department.getName());
-        return departmentDTO;
+        var departmentDto = new DepartmentDto();
+        departmentDto.setId(department.getId());
+        departmentDto.setName(department.getName());
+        return departmentDto;
     }
 }

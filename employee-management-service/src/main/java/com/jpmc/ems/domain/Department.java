@@ -1,7 +1,5 @@
 package com.jpmc.ems.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +17,5 @@ public class Department {
     private Long id;
     private String name;
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    //@JsonManagedReference
-    //@JsonIgnore
     private List<Employee> employees;
 }

@@ -31,8 +31,14 @@ public class DataInitializer implements CommandLineRunner {
         employeeRepository.saveAll(List.of(
                 Employee.builder().name("John Doe").department(engineering).salary(5000.00).build(),
                 Employee.builder().name("Jane Smith").department(engineering).salary(6000.00).build(),
+                Employee.builder().name("Tom").department(engineering).salary(16000.00).build(),
+                Employee.builder().name("Matt").department(engineering).salary(6000.00).build(),
                 Employee.builder().name("Bob Johnson").department(sales).salary(4500.00).build(),
-                Employee.builder().name("Alice Williams").department(marketing).salary(5500.00).build()
+                Employee.builder().name("Chris").department(sales).salary(12500.00).build(),
+                Employee.builder().name("Adam").department(sales).salary(14500.00).build(),
+                Employee.builder().name("Alice Williams").department(marketing).salary(5500.00).build(),
+                Employee.builder().name("Steve").department(marketing).salary(11000.00).build(),
+                Employee.builder().name("Tim").department(marketing).salary(18000.00).build()
         ));
     }
 }

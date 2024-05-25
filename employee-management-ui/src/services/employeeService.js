@@ -12,9 +12,31 @@ const getByDepartment = async (departmentName) => {
   return response.data;
 };
 
-const getEmployeesBySalaryGreaterThan = async (salary) => {
-  const response = await axios.get(`${baseUrl}/salary/${salary}`);
+const getEmployeesBySalaryGreaterThanOrEqual = async (salary) => {
+  const response = await axios.get(`${baseUrl}/salaryGreaterThanOrEqual/${salary}`);
   return response.data;
 };
 
-export default { getAll, getByDepartment, getEmployeesBySalaryGreaterThan };
+const getEmployeesBySalaryLessThan = async (salary) => {
+  const response = await axios.get(`${baseUrl}/salaryLessThan/${salary}`);
+  return response.data;
+};
+
+const getByDepartmentAndSalaryGreaterThanOrEqual = async (departmentName, salary) => {
+  const response = await axios.get(`${baseUrl}/department/${departmentName}/salaryGreaterThanOrEqual/${salary}`);
+  return response.data;
+};
+
+const getByDepartmentAndSalaryLessThan = async (departmentName, salary) => {
+  const response = await axios.get(`${baseUrl}/department/${departmentName}/salaryLessThan/${salary}`);
+  return response.data;
+};
+
+export default {
+  getAll,
+  getByDepartment,
+  getEmployeesBySalaryGreaterThanOrEqual,
+  getEmployeesBySalaryLessThan,
+  getByDepartmentAndSalaryGreaterThanOrEqual,
+  getByDepartmentAndSalaryLessThan,
+};

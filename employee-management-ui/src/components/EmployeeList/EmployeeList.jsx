@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 import employeeService from '../../services/employeeService';
 import EmployeeFilter  from '../../components/EmployeeFilter/EmployeeFilter';
 import './EmployeeList.css';
+import { debounce } from '../../utils/debounce';
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -21,7 +22,8 @@ const EmployeeList = () => {
     fetchEmployees();
   }, []);
 
-  const handleFilterChange = async ({ department, salaryFilter }) => {
+  const debouncedHandleFilterChange  = useCallback(
+    debounce(async ({ department, salaryFilter }) => {
     let filtered = [];
 
     // 1. If the department is provided and the salary filter is null (less than 10K)
@@ -53,12 +55,14 @@ const EmployeeList = () => {
   }
     setFiltersApplied(true);
     setFilteredEmployees(filtered);
-  };
+  }, 700),
+  []
+);
 
   return (
     <div className="employee-list-container">
       <h1 className="project-name">Employee Management System</h1>
-      <EmployeeFilter onFilterChange={handleFilterChange} />
+      <EmployeeFilter onFilterChange={debouncedHandleFilterChange } />
       {filtersApplied && filteredEmployees.length === 0 ? (
         <p className="no-employees-found">No employees found.</p>
       ) : !filtersApplied ? (

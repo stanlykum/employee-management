@@ -19,7 +19,6 @@ public class EmployeeManagementServiceApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        //.allowedOrigins("http://localhost:3000") // Replace with the origin of your React app
                         .allowedOrigins("http://localhost:8800")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*");

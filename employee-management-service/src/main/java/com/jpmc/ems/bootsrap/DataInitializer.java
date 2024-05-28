@@ -29,6 +29,7 @@ public class DataInitializer implements CommandLineRunner {
 
         // Initialize employees
         employeeRepository.saveAll(List.of(
+                Employee.builder().name("Dave").department(engineering).salary(10000.00).build(),
                 Employee.builder().name("John Doe").department(engineering).salary(5000.00).build(),
                 Employee.builder().name("Jane Smith").department(engineering).salary(6000.00).build(),
                 Employee.builder().name("Tom").department(engineering).salary(16000.00).build(),
@@ -36,9 +37,11 @@ public class DataInitializer implements CommandLineRunner {
                 Employee.builder().name("Bob Johnson").department(sales).salary(4500.00).build(),
                 Employee.builder().name("Chris").department(sales).salary(12500.00).build(),
                 Employee.builder().name("Adam").department(sales).salary(14500.00).build(),
+                Employee.builder().name("Piers").department(sales).salary(10000.00).build(),
                 Employee.builder().name("Alice Williams").department(marketing).salary(5500.00).build(),
                 Employee.builder().name("Steve").department(marketing).salary(11000.00).build(),
-                Employee.builder().name("Tim").department(marketing).salary(18000.00).build()
+                Employee.builder().name("Tim").department(marketing).salary(18000.00).build(),
+                Employee.builder().name("Pete").department(marketing).salary(10000.00).build()
         ));
     }
 }

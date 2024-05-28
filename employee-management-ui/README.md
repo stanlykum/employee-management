@@ -68,3 +68,34 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+## Docker
+
+Latest Docker build available at stanlyajeesh/employee-management-ui:latest
+
+Docker Build
+
+```
+docker build -t stanlyajeesh/employee-management-ui:latest .
+```
+
+Docker Run
+
+```
+docker run -p 8800:8800 stanlyajeesh/employee-management-ui
+```
+
+Docker Push
+
+```
+docker login
+
+docker push stanlyajeesh/employee-management-ui:latest
+```
+
+Docker Pull
+
+```
+docker pull stanlyajeesh/employee-management-ui:latest
+```

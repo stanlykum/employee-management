@@ -4,6 +4,8 @@ import com.jpmc.ems.domain.Department;
 import com.jpmc.ems.domain.Employee;
 import com.jpmc.ems.domain.dto.DepartmentDto;
 import com.jpmc.ems.domain.dto.EmployeeDto;
+import com.jpmc.ems.exception.BusinessException;
+import com.jpmc.ems.exception.ErrorCodeEnum;
 import com.jpmc.ems.mapper.EntityToDtoMapper;
 import com.jpmc.ems.repository.DepartmentRepository;
 import com.jpmc.ems.repository.EmployeeRepository;
@@ -17,8 +19,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -86,7 +90,7 @@ class EmployeeServiceImplTest {
                 new EmployeeDto(1L, "John", new DepartmentDto(1L, "IT"), 50000.0)
         );
 
-        when(departmentRepository.findByName(departmentName)).thenReturn(itDepartment);
+        when(departmentRepository.findByName(departmentName)).thenReturn(Optional.ofNullable(itDepartment));
         when(employeeRepository.findByDepartment(itDepartment)).thenReturn(employees);
         when(entityToDtoMapper.mapEmployeeToDTO(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
 
@@ -149,11 +153,12 @@ class EmployeeServiceImplTest {
         List<EmployeeDto> expectedEmployeeDtos = Arrays.asList(
                 new EmployeeDto(1L, "John", new DepartmentDto(1L, "IT"), 50000.0)
         );
-
+        when(departmentRepository.findByName(departmentName)).thenReturn(Optional.ofNullable(itDepartment));
         when(employeeRepository.findByDepartmentAndSalaryGreaterThanOrEqual(departmentName, salary)).thenReturn(employees);
         when(entityToDtoMapper.mapEmployeeToDTO(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
 
         // when
+
         List<EmployeeDto> actualEmployeeDtos = employeeService.getEmployeesByDepartmentAndSalaryGreaterThanOrEqual(departmentName, salary);
 
         // then
@@ -170,7 +175,7 @@ class EmployeeServiceImplTest {
         List<EmployeeDto> expectedEmployeeDtos = Arrays.asList(
                 new EmployeeDto(1L, "John", new DepartmentDto(1L, "IT"), 50000.0)
         );
-
+        when(departmentRepository.findByName(departmentName)).thenReturn(Optional.ofNullable(itDepartment));
         when(employeeRepository.findByDepartmentAndSalaryLessThan(departmentName, maxSalary)).thenReturn(employees);
         when(entityToDtoMapper.mapEmployeeToDTO(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
 
@@ -180,4 +185,58 @@ class EmployeeServiceImplTest {
         // then
         assertThat(actualEmployeeDtos).isEqualTo(expectedEmployeeDtos);
     }
+
+
+    @Test
+    @DisplayName("Should throw exception when department not found")
+    void shouldThrowExceptionWhenDepartmentNotFound() {
+        // given
+        String departmentName = "InvalidDepartment";
+
+        when(departmentRepository.findByName(departmentName)).thenReturn(Optional.empty());
+
+        // when, then
+        assertThatThrownBy(() -> employeeService.getEmployeesByDepartment(departmentName))
+                .isInstanceOf(BusinessException.class)
+                .hasMessageContaining(ErrorCodeEnum.DEPARTMENT_NOT_FOUND.getMessage() + departmentName);
+    }
+
+
+    @Test
+    @DisplayName("Should get employees greater than or equal by department and salary")
+    void shouldGeBusinessExceptionWhenEmployeesByDepartmentAndSalaryGreaterThanOrEqual() {
+        // given
+        String departmentName = "Invalid";
+        double salary = 50000.0;
+        List<Employee> employees = Arrays.asList(johnDoe);
+        List<EmployeeDto> expectedEmployeeDtos = Arrays.asList(
+                new EmployeeDto(1L, "John", new DepartmentDto(1L, "Invalid"), 50000.0)
+        );
+
+        when(departmentRepository.findByName(departmentName)).thenReturn(Optional.empty());
+
+        // when, then
+        assertThatThrownBy(() -> employeeService.getEmployeesByDepartmentAndSalaryGreaterThanOrEqual(departmentName, salary))
+                .isInstanceOf(BusinessException.class)
+                .hasMessageContaining(ErrorCodeEnum.DEPARTMENT_NOT_FOUND.getMessage() + departmentName);
+    }
+
+    @Test
+    @DisplayName("Should get business exception when employees less than or equal by department and salary")
+    void shouldGetBusinessExceptionWhenEmployeesByDepartmentAndSalaryLessThan() {
+        // given
+        String departmentName = "Invalid";
+        double maxSalary = 60000.0;
+        List<Employee> employees = Arrays.asList(johnDoe);
+        List<EmployeeDto> expectedEmployeeDtos = Arrays.asList(
+                new EmployeeDto(1L, "John", new DepartmentDto(1L, "Invalid"), 50000.0)
+        );
+        when(departmentRepository.findByName(departmentName)).thenReturn(Optional.empty());
+
+        // when, then
+        assertThatThrownBy(() -> employeeService.getEmployeesByDepartmentAndSalaryLessThan(departmentName, maxSalary))
+                .isInstanceOf(BusinessException.class)
+                .hasMessageContaining(ErrorCodeEnum.DEPARTMENT_NOT_FOUND.getMessage() + departmentName);
+    }
+
 }

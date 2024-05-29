@@ -9,11 +9,11 @@ public interface EmployeeService {
 
     List<EmployeeDto> getEmployeesByDepartment(String departmentName);
 
-    List<EmployeeDto> getEmployeesBySalaryGreaterThanOrEqual(double minSalary);
+    List<EmployeeDto> getEmployeesBySalaryGreaterThanOrEqual(double salary);
 
-    List<EmployeeDto> getEmployeesBySalaryLessThan(double maxSalary);
+    List<EmployeeDto> getEmployeesBySalaryLessThan(double salary);
 
-    List<EmployeeDto> getEmployeesByDepartmentAndSalaryGreaterThanOrEqual(String departmentName, double minSalary);
+    List<EmployeeDto> getEmployeesByDepartmentAndSalaryGreaterThanOrEqual(String departmentName, double salary);
 
-    List<EmployeeDto> getEmployeesByDepartmentAndSalaryLessThan(String departmentName, double maxSalary);
+    List<EmployeeDto> getEmployeesByDepartmentAndSalaryLessThan(String departmentName, double salary);
 }

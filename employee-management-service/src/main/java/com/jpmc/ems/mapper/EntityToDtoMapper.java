@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EntityToDtoMapper {
 
-    public EmployeeDto mapEmployeeToDTO(Employee employee) {
+    public EmployeeDto mapEmployeeToDto(Employee employee) {
         var employeeDto = new EmployeeDto();
         employeeDto.setId(employee.getId());
         employeeDto.setName(employee.getName());

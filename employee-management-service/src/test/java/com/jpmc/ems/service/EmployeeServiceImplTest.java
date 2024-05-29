@@ -70,8 +70,8 @@ class EmployeeServiceImplTest {
         );
 
         when(employeeRepository.findAll()).thenReturn(employees);
-        when(entityToDtoMapper.mapEmployeeToDTO(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
-        when(entityToDtoMapper.mapEmployeeToDTO(janeSmith)).thenReturn(expectedEmployeeDtos.get(1));
+        when(entityToDtoMapper.mapEmployeeToDto(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
+        when(entityToDtoMapper.mapEmployeeToDto(janeSmith)).thenReturn(expectedEmployeeDtos.get(1));
 
         // when
         List<EmployeeDto> actualEmployeeDtos = employeeService.getAllEmployees();
@@ -92,7 +92,7 @@ class EmployeeServiceImplTest {
 
         when(departmentRepository.findByName(departmentName)).thenReturn(Optional.ofNullable(itDepartment));
         when(employeeRepository.findByDepartment(itDepartment)).thenReturn(employees);
-        when(entityToDtoMapper.mapEmployeeToDTO(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
+        when(entityToDtoMapper.mapEmployeeToDto(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
 
         // when
         List<EmployeeDto> actualEmployeeDtos = employeeService.getEmployeesByDepartment(departmentName);
@@ -113,8 +113,8 @@ class EmployeeServiceImplTest {
         );
 
         when(employeeRepository.findBySalaryGreaterThanOrEqual(salary)).thenReturn(employees);
-        when(entityToDtoMapper.mapEmployeeToDTO(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
-        when(entityToDtoMapper.mapEmployeeToDTO(janeSmith)).thenReturn(expectedEmployeeDtos.get(1));
+        when(entityToDtoMapper.mapEmployeeToDto(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
+        when(entityToDtoMapper.mapEmployeeToDto(janeSmith)).thenReturn(expectedEmployeeDtos.get(1));
 
         // when
         List<EmployeeDto> actualEmployeeDtos = employeeService.getEmployeesBySalaryGreaterThanOrEqual(salary);
@@ -134,7 +134,7 @@ class EmployeeServiceImplTest {
         );
 
         when(employeeRepository.findBySalaryLessThan(salary)).thenReturn(employees);
-        when(entityToDtoMapper.mapEmployeeToDTO(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
+        when(entityToDtoMapper.mapEmployeeToDto(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
 
         // when
         List<EmployeeDto> actualEmployeeDtos = employeeService.getEmployeesBySalaryLessThan(salary);
@@ -155,7 +155,7 @@ class EmployeeServiceImplTest {
         );
         when(departmentRepository.findByName(departmentName)).thenReturn(Optional.ofNullable(itDepartment));
         when(employeeRepository.findByDepartmentAndSalaryGreaterThanOrEqual(departmentName, salary)).thenReturn(employees);
-        when(entityToDtoMapper.mapEmployeeToDTO(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
+        when(entityToDtoMapper.mapEmployeeToDto(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
 
         // when
 
@@ -177,7 +177,7 @@ class EmployeeServiceImplTest {
         );
         when(departmentRepository.findByName(departmentName)).thenReturn(Optional.ofNullable(itDepartment));
         when(employeeRepository.findByDepartmentAndSalaryLessThan(departmentName, maxSalary)).thenReturn(employees);
-        when(entityToDtoMapper.mapEmployeeToDTO(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
+        when(entityToDtoMapper.mapEmployeeToDto(johnDoe)).thenReturn(expectedEmployeeDtos.get(0));
 
         // when
         List<EmployeeDto> actualEmployeeDtos = employeeService.getEmployeesByDepartmentAndSalaryLessThan(departmentName, maxSalary);

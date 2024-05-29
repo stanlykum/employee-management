@@ -2,7 +2,6 @@ package com.jpmc.ems.controller;
 
 import com.jpmc.ems.domain.dto.DepartmentDto;
 import com.jpmc.ems.domain.dto.EmployeeDto;
-import com.jpmc.ems.mapper.EntityToDtoMapper;
 import com.jpmc.ems.service.EmployeeServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,9 +28,6 @@ public class EmployeeControllerTest {
 
     @MockBean
     private EmployeeServiceImpl employeeService;
-
-    @MockBean
-    private EntityToDtoMapper entityToDtoMapper;
 
     @Test
     @DisplayName("Should get all employees")

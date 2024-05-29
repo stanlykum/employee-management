@@ -23,12 +23,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.entityToDtoMapper = entityToDtoMapper;
     }
 
-
     @Override
     public List<EmployeeDto> getAllEmployees() {
         var employees = employeeRepository.findAll();
         return employees.stream()
-                .map(entityToDtoMapper::mapEmployeeToDTO)
+                .map(entityToDtoMapper::mapEmployeeToDto)
                 .collect(Collectors.toList());
     }
 
@@ -38,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (department.isPresent()) {
             var employees = employeeRepository.findByDepartment(department.get());
             return employees.stream()
-                    .map(entityToDtoMapper::mapEmployeeToDTO)
+                    .map(entityToDtoMapper::mapEmployeeToDto)
                     .collect(Collectors.toList());
         } else {
             throw new BusinessException(ErrorCodeEnum.DEPARTMENT_NOT_FOUND.getErrorCode(), ErrorCodeEnum.DEPARTMENT_NOT_FOUND.getMessage() + departmentName);
@@ -50,7 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeDto> getEmployeesBySalaryGreaterThanOrEqual(double salary) {
         var employees = employeeRepository.findBySalaryGreaterThanOrEqual(salary);
         return employees.stream()
-                .map(entityToDtoMapper::mapEmployeeToDTO)
+                .map(entityToDtoMapper::mapEmployeeToDto)
                 .collect(Collectors.toList());
     }
 
@@ -58,7 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeDto> getEmployeesBySalaryLessThan(double salary) {
         var employees = employeeRepository.findBySalaryLessThan(salary);
         return employees.stream()
-                .map(entityToDtoMapper::mapEmployeeToDTO)
+                .map(entityToDtoMapper::mapEmployeeToDto)
                 .collect(Collectors.toList());
     }
 
@@ -68,7 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (department.isPresent()) {
             var employees = employeeRepository.findByDepartmentAndSalaryGreaterThanOrEqual(department.get().getName(), salary);
             return employees.stream()
-                    .map(entityToDtoMapper::mapEmployeeToDTO)
+                    .map(entityToDtoMapper::mapEmployeeToDto)
                     .collect(Collectors.toList());
         } else {
             throw new BusinessException(ErrorCodeEnum.DEPARTMENT_NOT_FOUND.getErrorCode(), ErrorCodeEnum.DEPARTMENT_NOT_FOUND.getMessage() + departmentName);
@@ -81,7 +80,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (department.isPresent()) {
             var employees = employeeRepository.findByDepartmentAndSalaryLessThan(department.get().getName(), maxSalary);
             return employees.stream()
-                    .map(entityToDtoMapper::mapEmployeeToDTO)
+                    .map(entityToDtoMapper::mapEmployeeToDto)
                     .collect(Collectors.toList());
         } else {
             throw new BusinessException(ErrorCodeEnum.DEPARTMENT_NOT_FOUND.getErrorCode(), ErrorCodeEnum.DEPARTMENT_NOT_FOUND.getMessage() + departmentName);

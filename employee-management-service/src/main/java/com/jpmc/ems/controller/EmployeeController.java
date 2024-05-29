@@ -1,7 +1,6 @@
 package com.jpmc.ems.controller;
 
 import com.jpmc.ems.domain.dto.EmployeeDto;
-import com.jpmc.ems.mapper.EntityToDtoMapper;
 import com.jpmc.ems.service.EmployeeService;
 import com.jpmc.ems.service.EmployeeServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,11 +18,9 @@ import java.util.List;
 @RequestMapping("/api/employees")
 public class EmployeeController {
     private final EmployeeService employeeService;
-    private final EntityToDtoMapper entityToDtoMapper;
 
-    public EmployeeController(EmployeeServiceImpl employeeService, EntityToDtoMapper entityToDtoMapper) {
+    public EmployeeController(EmployeeServiceImpl employeeService) {
         this.employeeService = employeeService;
-        this.entityToDtoMapper = entityToDtoMapper;
     }
 
     @GetMapping("/all")

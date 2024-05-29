@@ -80,7 +80,6 @@ const EmployeeList = () => {
       {error && (
         <div className="error-message">
           <p className="no-employees-found">{error.message}</p>
-          {/* You can display additional error details here */}
         </div>
       )}
       <EmployeeFilter onFilterChange={debouncedHandleFilterChange} />
